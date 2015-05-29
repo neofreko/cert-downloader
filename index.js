@@ -2,7 +2,7 @@
 The MIT License (MIT)
 Copyright (c) Patrick Londema <plondema@service2media.com>
 
-Based on work by
+Sections by Silas Knobel <dev@katun.ch>:
 The MIT License (MIT)
 Copyright (c) Silas Knobel <dev@katun.ch> (http://katun.ch)
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -26,26 +26,49 @@ THE SOFTWARE.
 
 var CertDownloader;
 
-CertDownloader = (function (certName, options) {
-    function CertDownloader(certName, options) {
-        this.certName = certName ? certName : 'AppleIncRootCertificate.cer';
+CertDownloader = (function (options) {
+
+    /**
+     * CertDownloader([options]).
+     * Construct a new CertDownloader.
+     * 
+     * `options` overrides one or several defaults and should be in JSON format
+     * with any of the following options:
+     * `certName`: name of the certificate (default is `AppleIncRootCertificate.cer`)
+     * `url`     : URL to download the certificate from (default is
+     *             `http://www.apple.com/appleca/AppleIncRootCertificate.cer`)
+     * `cache`   : path to cache location (a.k.a. where to keep the certificates locally,
+     *             default is the directory that the currently executing script resides in)
+     */
+    function CertDownloader(options) {
+        this.certName = 'AppleIncRootCertificate.cer';
         this.fs = require('fs');
         this.http = require('http');
         this.util = require('util');
         this.path = require('path');
         this.rootUrl = 'http://www.apple.com/appleca/AppleIncRootCertificate.cer';
         this.localPath = __dirname;
-        
         if(options) {
-            if(options.rootUrl) {
-                this.rootUrl = options.rootUrl;
+            if(options.certName) {
+                this.certName = options.certName;
             }
-            if(options.localPath) {
-                this.localPath = options.localPath;
+            if(options.url) {
+                this.rootUrl = options.url;
+            }
+            if(options.cache) {
+                this.localPath = options.cache;
             }
         }
     }
 
+    /**
+     * Retrieve the certificate.
+     * 
+     * Attempts to download a missing certificate and returns the path to said
+     * certificate if available (either cached or downloaded).
+     * The callback gets two arguments (err, path), where path is a string to
+     * the location of the certificate.
+     */
     CertDownloader.prototype.cert = function (callback) {
         return this.fs.exists(this.path.join(this.localPath, this.certName),(function (_this) {
             return function (exists) {
@@ -68,6 +91,14 @@ CertDownloader = (function (certName, options) {
         })(this));
     };
 
+    /**
+     * Retrieve the certificate in PEM format.
+     * 
+     * Attempts to download and convert a missing certificate and returns the
+     * path to said certificate if available (either cached or converted).
+     * The callback gets two arguments (err, path), where path is a string
+     * to the location of the certificate.
+     */
     CertDownloader.prototype.pem = function (callback) {
         var pemFileName = this.util.format('%s.pem', this.certName.split('.')[0]);
         return this.fs.exists(this.path.join(this.localPath, pemFileName),(function (_this) {
