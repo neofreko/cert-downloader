@@ -1,7 +1,7 @@
 {
   "name": "cert-downloader",
-  "version": "0.0.1",
-  "description": "ssl certificate downloader",
+  "version": "0.0.2",
+  "description": "(Apple) SSL certificate downloader",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
