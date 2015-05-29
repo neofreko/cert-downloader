@@ -41,6 +41,16 @@ certDl.pem(function (error, certificatePath) {
         // /nodeproject/certificate/AppleIncRootCertificate.pem
     }
 });
+
+// verifiy an existing file against the certificate
+// (will download and convert if required)
+var file = '/nodeproject/certicate/file-to-verify';
+certDl.verify(file, function(error, output) {
+    if(error){
+      return callback('File verification failed: ' + error);
+    }
+    console.log('Verified output: ' + output);
+  });
 ```
 
 ## License

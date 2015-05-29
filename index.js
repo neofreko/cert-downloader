@@ -132,6 +132,40 @@ CertDownloader = (function (options) {
         })(this));
     };
 
+    /**
+     * Verifies a file against the certificate.
+     * 
+     * Attempts to download and convert a missing certificate and returns the
+     * content of the file if succesfully verified.
+     * The callback gets two arguments (err, output), where output is the content
+     * of the file if succesfully verified.
+     */
+    CertDownloader.prototype.verify = function(file, callback) {
+        return function (_this) {
+            return _this.pem(function (error, pemPath) {
+                if(error) {
+                    return callback(error);
+                }
+                var exec, execOptions;
+                exec = require('child_process').exec;
+                execOptions = {
+                    cwd: _this.localPath
+                };
+                var cmd = _this.util.format(
+                    'openssl smime -in %s -inform der -verify -CAfile %s',
+                    file,
+                    pemPath);
+                exec(cmd, function(error, output){
+                    if(error){
+                        return callback(error);
+                    } else {
+                        return callback(null, output);
+                    }
+                });
+            });
+        }(this);
+    };
+
     return CertDownloader;
 
 })();

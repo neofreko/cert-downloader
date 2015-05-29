@@ -1,6 +1,6 @@
 {
   "name": "cert-downloader",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "(Apple) SSL certificate downloader",
   "main": "index.js",
   "scripts": {
@@ -11,6 +11,11 @@
     "url": "https://github.com/evi-snowm/cert-downloader.git"
   },
   "keywords": [
+    "apple",
+    "cer",
+    "certificate",
+    "download",
+    "pem",
     "ssl"
   ],
   "author": "P. Londema <p.londema@service2media.com>",
