@@ -1,28 +1,28 @@
 # cert-downloader
-(Apple) SSL Certificate downloader
+(Apple) SSL Certificate downloader. Downloads and optionally converts an SSL certificate.
 
-Downloads and optionally converts an SSL certificate.
+This is a helper module that allows you to dowload an SSL certificate, by default that of Apple Inc..
 
-This is a helper module that allows you to dowload an SSL certificate, by default that of Apple Inc.
-Output in in either CER or PEM format.
+Offered functionality:
+* Download certificate and store locally.
+* Convert certificate to PEM format.
+* Validate a file against the certificate.
 
-**NOTE** OpenSSL or compatible must be installed on your system if you wish to use certificated in the PEM format.
-This is currently UNTESTED work in progress.
+**NOTE** OpenSSL or compatible must be installed on your system if you wish to use certificates in the PEM format.
+Without this tool, only the download function will work.
 
 ## Install
-Will work soon(ish).
-
 ```sh
-$ npm install --save cert-downloader
+$ npm install cert-downloader
 ```
 
 ## Usage
 
 ```js
-var CertDownloader = require('cert-downloaded');
+var CertDownloader = require('cert-downloader');
 var certDl = new CertDownloader();
 
-// download and save in default cache location
+// download and save in default (cache) location
 certDl.cert(function (error, certificatePath) {
     if(error) {
         console.error('Error ' + error);
