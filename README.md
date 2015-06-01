@@ -1,5 +1,4 @@
-# cert-downloader
-(Apple) SSL Certificate downloader. Downloads and optionally converts an SSL certificate.
+# cert-downloader [![Build Status](https://travis-ci.org/evi-snowm/cert-downloader.svg?branch=master)](https://travis-ci.org/evi-snowm/cert-downloader)
 
 This is a helper module that allows you to dowload an SSL certificate, by default that of Apple Inc..
 
