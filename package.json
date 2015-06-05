@@ -1,6 +1,6 @@
 {
   "name": "cert-downloader",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "(Apple) SSL certificate downloader",
   "main": "index.js",
   "scripts": {
@@ -26,6 +26,6 @@
   "homepage": "https://github.com/evi-snowm/cert-downloader",
   "dependencies": {},
   "devDependencies": {
-    "mocha": "^2.2.5"
+    "mocha": "2.2.x"
   }
 }

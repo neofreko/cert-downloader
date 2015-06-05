@@ -3,8 +3,9 @@
 
 var assert = require('assert');
 var fs = require('fs');
-var CertDownloader = require('../');
-var certDl = new CertDownloader();
+var path = require('path');
+var currentPath = path.resolve('.');
+var certDl = new (require('../'))({cache : currentPath});
 
 describe('Validate', function(){
 
@@ -23,13 +24,11 @@ describe('Validate', function(){
 
     // This will (should) trigger CER download, PEM conversion and embedded.mobileprovision testing
     it('Should return validated output', function(done){
-        var file = 'test/embedded.mobileprovision';
+        var file = currentPath + '/test/embedded.mobileprovision';
         certDl.verify(file, function(error, output) {
             assert.equal(error, void 0);
-
             var data = fs.readFileSync('test/embedded.nonsigned', 'utf8');
             assert.equal(output, data);
-
             done();
         });
     });
