@@ -37,7 +37,6 @@
 <p><a href="https://travis-ci.org/evi-snowm/cert-downloader"><img src="https://travis-ci.org/evi-snowm/cert-downloader.svg?branch=develop" alt="Build Status"></a></p>
 
 <p>This is a helper module that allows you to dowload an SSL certificate, by default that of Apple Inc..</p>
-
 <p>Offered functionality:</p>
 
 <ul>
@@ -50,8 +49,22 @@
 
 <h2>
 <a id="install" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>Install</h2>
-
+This module has been <a href="https://www.npmjs.com/package/cert-downloader">published</a>, so the easiest method to install the module is via NPM.
 <div class="highlight highlight-sh"><pre>$ npm install cert-downloader</pre></div>
+
+<h2>
+<a id="update" class="anchor" href="#update" aria-hidden="true"><span class="octicon octicon-link"></span></a>Update</h2>
+<p>If your project already depends on this module just should consider updating to version 0.1.0. This version is a rewrite to make the code clearer
+    and more maintainable in the future, but it is purposefully compatible with the previouse release 0.0.4,
+    so upgrading should be as painless as possible. Just update your package.json to point to 0.1.0 or 0.1.x and npm update.</p>
+    
+<h3>Changes</h3>
+<p>
+    <ul>
+        <li>Rewrote code into own style</li>
+        <li>Changed default cache location from 'current' folder to your systems 'temp' folder.</li>
+    </ul>
+</p>
 
 <h2>
 <a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
