@@ -63,12 +63,12 @@ function CertDownloader(options) {
  * the location of the certificate.
  */
 CertDownloader.prototype.cert = function (callback) {
-    var certPath = require('path').join(this.cachePath, this.certName);
     var _this = this;
-    if (this.fs.exists(certPath)) {
+    var certPath = require('path').join(_this.cachePath, _this.certName);
+    if (_this.fs.exists(certPath)) {
         callback(null, certPath);
     } else {
-        require('http').get(this.rootUrl, function (res) {
+        require('http').get(_this.rootUrl, function (res) {
             var downloadStream = _this.fs.createWriteStream(certPath);
             res.pipe(downloadStream);
             return downloadStream.on('finish', function () {
@@ -91,12 +91,12 @@ CertDownloader.prototype.cert = function (callback) {
  * to the location of the certificate.
  */
 CertDownloader.prototype.pem = function (callback) {
-    var pemPath = require('path').join(this.cachePath, this.util.format('%s.pem', this.certName.split('.')[0]));
     var _this = this;
-    if (this.fs.exists(pemPath)) {
+    var pemPath = require('path').join(_this.cachePath, _this.util.format('%s.pem', _this.certName.split('.')[0]));
+    if (_this.fs.exists(pemPath)) {
         callback(null, pemPath);
     } else {
-        this.cert(function (error, certPath) {
+        _this.cert(function (error, certPath) {
             if (error) {
                 callback(error);
             } else {
@@ -128,7 +128,7 @@ CertDownloader.prototype.pem = function (callback) {
  */
 CertDownloader.prototype.verify = function (file, callback) {
     var _this = this;
-    this.pem(function (error, pemPath) {
+    _this.pem(function (error, pemPath) {
         if (error) {
             return callback(error);
         }
