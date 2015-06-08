@@ -26,7 +26,7 @@ Inspired by Silas Knobel <dev@katun.ch>
 /**
  * CertDownloader([options]).
  * Construct a new CertDownloader.
- * 
+ *
  * `options` overrides one or several defaults and should be in JSON format
  * with any of the following options:
  * `certName`: name of the certificate (default is `AppleIncRootCertificate.cer`)
@@ -56,7 +56,7 @@ function CertDownloader(options) {
 
 /**
  * Retrieve the certificate.
- * 
+ *
  * Attempts to download a missing certificate and returns the path to said
  * certificate if available (either cached or downloaded).
  * The callback gets two arguments (err, path), where path is a string to
@@ -84,7 +84,7 @@ CertDownloader.prototype.cert = function (callback) {
 
 /**
  * Retrieve the certificate in PEM format.
- * 
+ *
  * Attempts to download and convert a missing certificate and returns the
  * path to said certificate if available (either cached or converted).
  * The callback gets two arguments (err, path), where path is a string
@@ -120,11 +120,11 @@ CertDownloader.prototype.pem = function (callback) {
 
 /**
  * Verifies a file against the certificate.
- * 
+ *
  * Attempts to download and convert a missing certificate and returns the
- * content of the file if succesfully verified.
+ * content of the file if successfully verified.
  * The callback gets two arguments (err, output), where output is the content
- * of the file if succesfully verified.
+ * of the file if successfully verified.
  */
 CertDownloader.prototype.verify = function (file, callback) {
     var _this = this;
