@@ -108,12 +108,12 @@ certDl.verify(file, <span class="pl-k">function</span>(<span class="pl-smi">erro
 <a id="api" class="anchor" href="#api" aria-hidden="true"><span class="octicon octicon-link"></span></a>API</h2>
 
 <h3>CertDownloader([options])</h3>
-<p>Construct a new CertDownloader.</p>
-<p>You will always need to call this first. `options` Overrides one or several defaults and should be in JSON format with any of the following options:</p>
+<p>Construct a new CertDownloader. You will always need to call this first.</p>
+<p><em>options</em> Overrides one or several defaults and should be in JSON format with any of the following options:</p>
 <ul>
-    <li>`certName`: name of the certificate (default is <em>AppleIncRootCertificate.cer</em>)</li>
-    <li> `url`     : URL to download the certificate from (default is <em><a href="http://www.apple.com/appleca/AppleIncRootCertificate.cer">http://www.apple.com/appleca/AppleIncRootCertificate.cer</a></em>)</li>
-    <li> `cache`   : path to cache location (a.k.a. where to keep the certificates locally, by default this is the operating system's default directory for temp files)</li>
+    <li><em>certName</em>: name of the certificate (default is <em>AppleIncRootCertificate.cer</em>)</li>
+    <li><em>url</em>: URL to download the certificate from (default is <em><a href="http://www.apple.com/appleca/AppleIncRootCertificate.cer">http://www.apple.com/appleca/AppleIncRootCertificate.cer</a></em>)</li>
+    <li><em>cache</em>: path to cache location (a.k.a. where to keep the certificates locally, by default this is the operating system's default directory for temp files)</li>
 </ul>
 <div class="highlight highlight-js">
     <pre><span class="pl-k">var</span> CertDownloader <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>cert-downloader<span class="pl-pds">'</span></span>);
