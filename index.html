@@ -36,7 +36,7 @@
 
 <p><a href="https://travis-ci.org/evi-snowm/cert-downloader"><img src="https://travis-ci.org/evi-snowm/cert-downloader.svg?branch=develop" alt="Build Status"></a></p>
 
-<p>This is a helper module that allows you to dowload an SSL certificate, by default that of Apple Inc..</p>
+<p>This is a helper module that allows you to download an SSL certificate, by default that of Apple Inc..</p>
 <p>Offered functionality:</p>
 
 <ul>
@@ -57,7 +57,7 @@ This module has been <a href="https://www.npmjs.com/package/cert-downloader">pub
 <p>If your project already depends on this module just should consider updating to version 0.1.0. This version is a rewrite to make the code clearer
     and more maintainable in the future, but it is purposefully compatible with the previouse release 0.0.4,
     so upgrading should be as painless as possible. Just update your package.json to point to 0.1.0 or 0.1.x and npm update.</p>
-    
+
 <h3>Changes</h3>
 <p>
     <ul>
@@ -69,7 +69,8 @@ This module has been <a href="https://www.npmjs.com/package/cert-downloader">pub
 <h2>
 <a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
 
-<div class="highlight highlight-js"><pre><span class="pl-k">var</span> CertDownloader <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>cert-downloader<span class="pl-pds">'</span></span>);
+<div class="highlight highlight-js">
+    <pre><span class="pl-k">var</span> CertDownloader <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>cert-downloader<span class="pl-pds">'</span></span>);
 <span class="pl-k">var</span> certDl <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">CertDownloader</span>();
 
 <span class="pl-c">// download and save in default (cache) location</span>
@@ -82,7 +83,7 @@ certDl.cert(<span class="pl-k">function</span> (<span class="pl-smi">error</span
     }
 });
 
-<span class="pl-c">// download and convert to PEM (will use cached cer file and convert that to pem)</span>
+<span class="pl-c">// download and convert to PEM (will use cached cer file)</span>
 certDl.pem(<span class="pl-k">function</span> (<span class="pl-smi">error</span>, <span class="pl-smi">certificatePath</span>) {
     <span class="pl-k">if</span>(error) {
         <span class="pl-en">console</span><span class="pl-c1">.error</span>(<span class="pl-s"><span class="pl-pds">'</span>Error <span class="pl-pds">'</span></span> <span class="pl-k">+</span> error);
@@ -100,7 +101,61 @@ certDl.verify(file, <span class="pl-k">function</span>(<span class="pl-smi">erro
       <span class="pl-k">return</span> callback(<span class="pl-s"><span class="pl-pds">'</span>File verification failed: <span class="pl-pds">'</span></span> <span class="pl-k">+</span> error);
     }
     <span class="pl-en">console</span><span class="pl-c1">.log</span>(<span class="pl-s"><span class="pl-pds">'</span>Verified output: <span class="pl-pds">'</span></span> <span class="pl-k">+</span> output);
-  });</pre></div>
+});</pre>
+</div>
+
+<h2>
+<a id="api" class="anchor" href="#api" aria-hidden="true"><span class="octicon octicon-link"></span></a>API</h2>
+
+<h3>CertDownloader([options])</h3>
+<p>Construct a new CertDownloader.</p>
+<p>You will always need to call this first. `options` Overrides one or several defaults and should be in JSON format with any of the following options:</p>
+<ul>
+    <li>`certName`: name of the certificate (default is <em>AppleIncRootCertificate.cer</em>)</li>
+    <li> `url`     : URL to download the certificate from (default is <em><a href="http://www.apple.com/appleca/AppleIncRootCertificate.cer">http://www.apple.com/appleca/AppleIncRootCertificate.cer</a></em>)</li>
+    <li> `cache`   : path to cache location (a.k.a. where to keep the certificates locally, by default this is the operating system's default directory for temp files)</li>
+</ul>
+<div class="highlight highlight-js">
+    <pre><span class="pl-k">var</span> CertDownloader <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>cert-downloader<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> certDl <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">CertDownloader</span>();</pre>
+</div>
+
+<h3>cert(callback)</h3>
+<p>Retrieve the certificate.</p>
+<p>Attempts to download a missing certificate and returns the path to said certificate if available (either cached or downloaded). The callback gets two arguments (err, path), where path is a string to the location of the certificate.</p>
+<div class="highlight highlight-js">
+    <pre>certDl.cert(<span class="pl-k">function</span> (<span class="pl-smi">error</span>, <span class="pl-smi">certificatePath</span>) {
+    <span class="pl-k">if</span>(error) {
+        <span class="pl-en">console</span><span class="pl-c1">.error</span>(<span class="pl-s"><span class="pl-pds">'</span>Error <span class="pl-pds">'</span></span> <span class="pl-k">+</span> error);
+    } <span class="pl-k">else</span> {
+        <span class="pl-en">console</span><span class="pl-c1">.log</span>(<span class="pl-s"><span class="pl-pds">'</span>Certificate downloaded to <span class="pl-pds">'</span></span> <span class="pl-k">+</span> certificatePath);
+    }
+});</pre></div>
+
+<h3>pem(callback)</h3>
+<p>Retrieve the certificate in PEM format.</p>
+<p>Attempts to download and convert a missing certificate and returns the path to said certificate if available (either cached or converted). The callback gets two arguments (err, path), where path is a string to the location of the certificate.</p>
+<div class="highlight highlight-js">
+    <pre>certDl.pem(<span class="pl-k">function</span> (<span class="pl-smi">error</span>, <span class="pl-smi">certificatePath</span>) {
+    <span class="pl-k">if</span>(error) {
+        <span class="pl-en">console</span><span class="pl-c1">.error</span>(<span class="pl-s"><span class="pl-pds">'</span>Error <span class="pl-pds">'</span></span> <span class="pl-k">+</span> error);
+    } <span class="pl-k">else</span> {
+        <span class="pl-en">console</span><span class="pl-c1">.log</span>(<span class="pl-s"><span class="pl-pds">'</span>Certificate downloaded to <span class="pl-pds">'</span></span> <span class="pl-k">+</span> certificatePath);
+    }
+});</pem></div>
+
+<h3>verify(file, callback)</h3>
+<p>Verifies a file against the certificate.</p>
+<p>Attempts to download and convert a missing certificate and returns the content of the file if successfully verified. The callback gets two arguments (err, output), where output is the content of the file if successfully verified.</p>
+<div class="highlight highlight-js"><pre>
+<span class="pl-k">var</span> file <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>/nodeproject/cert/file-to-verify<span class="pl-pds">'</span></span>;
+certDl.verify(file, <span class="pl-k">function</span>(<span class="pl-smi">error</span>, <span class="pl-smi">output</span>) {
+    <span class="pl-k">if</span>(error){
+      <span class="pl-k">return</span> callback(<span class="pl-s"><span class="pl-pds">'</span>File verification failed: <span class="pl-pds">'</span></span> <span class="pl-k">+</span> error);
+    }
+    <span class="pl-en">console</span><span class="pl-c1">.log</span>(<span class="pl-s"><span class="pl-pds">'</span>Verified output: <span class="pl-pds">'</span></span> <span class="pl-k">+</span> output);
+});</pre>
+</div>
 
 <h2>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
