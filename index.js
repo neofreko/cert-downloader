@@ -103,7 +103,7 @@ CertDownloader.prototype.pem = function (callback) {
                 var exec = require('child_process').exec;
                 var execOptions = {cwd: _this.cachePath};
                 var cmd = _this.util.format(
-                    'openssl x509 -inform der -in %s -out %s',
+                    'openssl x509 -inform der -in "%s" -out "%s"',
                     certPath,
                     pemPath);
                 return exec(cmd, execOptions, function (error) {
@@ -135,7 +135,7 @@ CertDownloader.prototype.verify = function (file, callback) {
         var exec = require('child_process').exec;
         var execOptions = {cwd: _this.cachePath};
         var cmd = _this.util.format(
-            'openssl smime -in %s -inform der -verify -CAfile %s',
+            'openssl smime -in "%s" -inform der -verify -CAfile "%s"',
             file,
             pemPath);
         exec(cmd, execOptions, function (error, output) {
